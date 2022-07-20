@@ -17,6 +17,7 @@ while noExit:
         loginId = input("Enter login Id: ").lower()
         password = input("Enter password: ")
         # user = dbOperation.checkLoginId(loginId)
+        # user = adminOperations.checkLoginId(loginId) # generic function can go in a different py file?
 
         if not user:  # User not found
             print('User not found!')
