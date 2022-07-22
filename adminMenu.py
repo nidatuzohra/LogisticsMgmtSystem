@@ -1,4 +1,4 @@
-import dbOperation
+import adminOperations
 
 
 def check_is_digit(input_str):
@@ -69,7 +69,7 @@ while noExit:
                             print("Provide appropriate value")
                             continue
                         else:
-                            dbOperation.save_product(Name, Price, Quantity)
+                            adminOperations.save_product(Name, Price, Quantity)
                             error_entry = False
                             break
                 elif choice == 22:  # admin(22)
@@ -88,7 +88,7 @@ while noExit:
                             print("Provide appropriate value")
                             continue
                         else:
-                            dbOperation.update_product_qty(Product_Id)
+                            adminOperations.update_product_qty(Product_Id)
                             error_entry = False
                             break
 
@@ -109,7 +109,7 @@ while noExit:
                             print("Provide appropriate value")
                             continue
                         else:
-                            dbOperation.save_vehicle(Vehicle_Type)
+                            adminOperations.save_vehicle(Vehicle_Type)
                             error_entry = False
                             break
 
@@ -130,14 +130,14 @@ while noExit:
                             print("Provide appropriate value")
                             continue
                         else:
-                            dbOperation.save_location(Add_Location)
+                            adminOperations.save_location(Add_Location)
                             error_entry = False
                             break
 
                 elif choice == 55:  # admin(55)
                     print("You have selected Generate report option")
                     print("***Generating report***")
-                    dbOperation.generate_report()
+                    adminOperations.generate_report()
                 elif choice == 66:  # admin(66)
                     print("You have selected Main Menu option")
                     break

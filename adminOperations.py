@@ -17,9 +17,10 @@ def check_login_id(loginid):
 # Function to add a product in the database
 def save_product(name, price, quantity):
     cursor = connection.cursor()
-    data = [(name, price, quantity)]
+    data = [name, price, quantity]
     cursor.execute("INSERT INTO PRODUCT(PRODUCTSNAME, PRICE, QUANTITY) VALUES (?, ?, ?)", data)
     cursor.execute("COMMIT;")
+    cursor.close()
 
 
 # Function to update the quantity of a product based on product id
@@ -36,14 +37,14 @@ def update_product_qty(product_id):
 # Function to add a vehicle in the database
 def save_vehicle(vehicle_type):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO VEHICLE(TYPE) VALUES (?)", vehicle_type)
+    cursor.execute("INSERT INTO VEHICLE(TYPE) VALUES (?)", (vehicle_type,))
     cursor.execute("COMMIT;")
 
 
 # Function to add a location in the database
 def save_location(name):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO LOCATION(COUNTRY) VALUES (?)", name)
+    cursor.execute("INSERT INTO LOCATION(COUNTRY) VALUES (?)", (name,))
     cursor.execute("COMMIT;")
 
 
@@ -52,7 +53,6 @@ def generate_report():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM LOCATION")
     # generate a table of all locations
-
 
 # --------------------------------------------------------------------------------
 # connection.close()
