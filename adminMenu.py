@@ -1,9 +1,6 @@
 import adminOperations
 
 
-
-
-
 noExit = True
 
 while noExit:

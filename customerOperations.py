@@ -15,7 +15,7 @@ def add_to_cart(cart, product_id, qty):
         cursor.execute("SELECT * FROM PRODUCT WHERE ID= '%s'" % product_id)
         product_details = cursor.fetchone()
         cart.append[product_details]
-        adminOperations.update_product_qty(product_id)
+        adminOperations.update_product_qty(product_id,qty)
         return cart
 
     
