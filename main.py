@@ -1,5 +1,6 @@
 # import dbOperation
 import adminMenu1
+import customerOperations
 
 noExit = True
 
@@ -10,6 +11,22 @@ while noExit:
     except ValueError:
         print('\nWrong selection!! Try again.')
         continue
+
+    if choice == 2:
+        print("Welcome to Logistic System.")
+        list_item = ["T-shirt", "Pents", "Jackets", "Shoose", "Tracks"]  # fetch databse
+        cart = []
+        while True:
+            print("what you want to buy:")
+            for item_index in range(len(list_item)):
+                print(item_index, "  " , list_item[item_index])
+            choose = int(input("what you want to buy:"))
+            quantity = int(input("how much you wnat to buy"))
+            customerOperations.add_to_cart(cart,choose,quantity)
+            if choose == 0:
+                break
+
+            # -----------check for quanity in database
 
     if choice == 3:
         print("Exit")
@@ -27,5 +44,6 @@ while noExit:
         elif choice == 1:  # admin(1)
             adminMenu1.adminMenu()
         else:  # customer(2)
-            print("Show customer options")  # remove this after adding code for customer
+            print("ucgb")
+
         #   Create new file, import and call function here to display the customer options
