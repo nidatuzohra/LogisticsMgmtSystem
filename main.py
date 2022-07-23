@@ -20,8 +20,8 @@ while noExit:
             print("what you want to buy:")
             for item_index in range(len(list_item)):
                 print(item_index, "  " , list_item[item_index])
-            choose = input("what you want to buy:")
-            quantity = input("how much you wnat to buy")
+            choose = int(input("what you want to buy:"))
+            quantity = int(input("how much you wnat to buy"))
             customerOperations.add_to_cart(cart,choose,quantity)
             if choose == 0:
                 break

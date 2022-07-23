@@ -1,20 +1,20 @@
 import sqlite3
 import adminOperations
 
-connection = sqlite3.connect("User.db")
+connection = sqlite3.connect("logisticsdb.db")
 
 
 # Function that checks availability and adds product to the cart
 def add_to_cart(cart, product_id, qty):
     cursor = connection.cursor()
     cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
-    product_qty = cursor.fetchone()
+    product_qty = cursor.fetchone()[0]
     if qty > product_qty:
         return -1
     else:
         cursor.execute("SELECT * FROM PRODUCT WHERE ID= '%s'" % product_id)
         product_details = cursor.fetchone()
-        cart.append[product_details]
+        cart.append(product_details)
         adminOperations.update_product_qty(product_id,qty)
         return cart
 
