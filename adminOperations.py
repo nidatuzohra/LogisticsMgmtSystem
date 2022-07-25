@@ -30,7 +30,6 @@ def update_product_qty(product_id,qty):
     product_qty = cursor.fetchone()
     new_qty = product_qty[0] - qty   # it will update due to customer new quanity
     cursor.execute("UPDATE PRODUCT SET QUANTITY = ? WHERE ID = ?", [new_qty, product_id])
-    cursor.execute("COMMIT;")
     print("Product quantity updated successfully")
 
 
