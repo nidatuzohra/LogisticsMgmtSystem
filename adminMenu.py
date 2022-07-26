@@ -50,6 +50,7 @@ def adminMenu():
             while error_entry:
                 try:
                     Product_Id = input(" Enter Product ID: ")
+                    Qty = int(input(" Enter the quantity: "))
                     Product_Id = int(Product_Id)
                 except ValueError:
                     print("Provide appropriate value")
@@ -60,7 +61,7 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
                 else:
-                    adminOperations.update_product_qty(Product_Id)
+                    adminOperations.update_product_qty(Product_Id, Qty)
                     error_entry = False
                     break
 
