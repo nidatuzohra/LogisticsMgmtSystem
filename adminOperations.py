@@ -34,13 +34,12 @@ def save_product(name, price, quantity):
 
 
 # Function to update the quantity of a product based on product id
-def update_product_qty(product_id):
+def update_product_qty(product_id,qty):
     cursor = connection.cursor()
     cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
     product_qty = cursor.fetchone()
-    new_qty = product_qty[0] + 1
+    new_qty = product_qty[0] - qty   # it will update due to customer new quanity
     cursor.execute("UPDATE PRODUCT SET QUANTITY = ? WHERE ID = ?", [new_qty, product_id])
-    cursor.execute("COMMIT;")
     print("Product quantity updated successfully")
 
 
