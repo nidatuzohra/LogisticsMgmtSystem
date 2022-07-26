@@ -13,6 +13,16 @@ def check_login_id(loginid):
     else:
         return True
 
+# function to check the password
+def checkPswd(loginid, pswd):
+    cursor = connection.cursor()
+    cursor.execute("SELECT PASSWORD FROM USER Where EMAIL= '%s'" % loginid)
+    password = cursor.fetchone()[0]
+    if password == pswd:
+        return True
+    else:
+        return False
+
 
 # Function to add a product in the database
 def save_product(name, price, quantity):
