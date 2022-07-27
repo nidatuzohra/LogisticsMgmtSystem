@@ -115,7 +115,7 @@ def adminMenu():
         elif choice == 6:  # admin(6)
             print("You have selected Create customer option")
             # TODO Create customer
-            adminOperations.save_customer('customer@example.com', 'pwd12345', 'John', 'Smith')
+            # adminOperations.save_customer('customer@example.com', 'pwd12345', 'John', 'Smith')
         elif choice == 7:  # admin(7)
             print("Exit, Add logout code")
             noAdminExit = False
