@@ -24,6 +24,18 @@ def checkPswd(loginid, pswd):
         return False
 
 
+# Function to save customer details in the database
+def save_customer(email, pwd, first_name, last_name):
+    cursor = connection.cursor()
+    user_info = [email, pwd, 'C']
+    cursor.execute("INSERT INTO USER(EMAIL, PASSWORD, ROLE) VALUES(?, ?, ?)", user_info)
+    user_id = cursor.execute("SELECT ID FROM USER WHERE EMAIL = '%s'" % email).fetchone()[0]
+    customer_info = [first_name, last_name, user_id]
+    cursor.execute("INSERT INTO CUSTOMER(FIRSTNAME, LASTNAME, USERID) VALUES(?, ?, ?)", customer_info)
+    cursor.execute("COMMIT;")
+    cursor.close()
+
+
 # Function to add a product in the database
 def save_product(name, price, quantity):
     cursor = connection.cursor()
