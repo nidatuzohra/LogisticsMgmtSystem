@@ -9,11 +9,11 @@ def add_to_cart(cart, product_id, qty):
     cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
     product_qty = int(cursor.fetchone()[0])
     if qty > product_qty:
-        return -1
+        return False
     else:
         cursor.execute("SELECT * FROM PRODUCT WHERE ID= '%s'" % product_id)
         product_details = cursor.fetchone()
-        #cart.append(product_details)
+        print(product_details[2])
         cart.append([product_details[0], product_details[1], qty, qty * product_details[2]])
         adminOperations.update_product_qty(product_id, qty)
         return cart
@@ -23,7 +23,7 @@ def show_product():
     cursor.execute("SELECT * FROM PRODUCT")
     available_product = cursor.fetchall()
     if available_product is None:
-        return -1
+        return False
     else:
         return available_product
 
@@ -36,6 +36,23 @@ def show_vehicle():
     else:
         return available_vehicle
 
+def fetch_value(total_value,statment):
+    correct_no = True
+    while correct_no:
+        try:
+            # selected_no = int(input("Select your delivery mode: "))
+            selected_no = int(input(statment))
+            if selected_no in total_value:
+                return selected_no
+                correct_option = False
+            else:
+                print("OPPS!! Please Insert proper Product Number\n ")
+                continue
+        except ValueError:
+            print("OPPS!! Character value is not allow Please select Integer Number")
+            print("Please, try again \n")
+            continue
+
 def show_location():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM LOCATION")
@@ -44,13 +61,6 @@ def show_location():
         return -1
     else:
         return available_country
-
-def end_user(confirm):
-    cursor = connection.cursor()
-    if (confirm == 'y' or confirm == 'Y' or confirm == 'YES' or confirm == 'Yes'):
-        cursor.execute("COMMIT;")
-    if (confirm == 'n' or confirm == 'N' or confirm == 'NO' or confirm == 'no'):
-        cursor.execute("ROLLBACK;")
 
 # -------------------------------------------------------------------------------
 # connection.close()

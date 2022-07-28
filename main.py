@@ -16,7 +16,13 @@ while noExit:
     if choice == 3:
         print("Exit")
         noExit = False
+
     else:
+        # if choice == 2:
+        #     new_customer_account = input("1-LOG IN \n2-SIGNUP\nChoose your option ")
+        #     if new_customer_account == 2:
+        #         print("")
+
         loginId = input("Enter login Id: ").lower()
         password = input("Enter password: ")
         user = adminOperations.check_login_id(loginId)
@@ -29,7 +35,6 @@ while noExit:
                 if choice == 1:  # admin(1)
                     adminMenu.adminMenu()
                 else:  # customer(2)
-                    print("Show customer options")  # remove this after adding code for customer
                     customer.customer()
             else:
                 print('Wrong password!')

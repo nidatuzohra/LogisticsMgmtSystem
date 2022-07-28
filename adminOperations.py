@@ -1,16 +1,18 @@
 import sqlite3
 
 connection = sqlite3.connect("logisticsdb.db")
-
+user_email = ""
 
 # Function to check user login information - different py file?
 def check_login_id(loginid):
+    global user_email
     cursor = connection.cursor()
     cursor.execute("SELECT EMAIL FROM USER Where EMAIL= '%s'" % loginid)
     loginName = cursor.fetchone()
     if loginName == None:
         return False
     else:
+        user_email = loginName
         return True
 
 # function to check the password
@@ -22,7 +24,6 @@ def checkPswd(loginid, pswd):
         return True
     else:
         return False
-
 
 # Function to add a product in the database
 def save_product(name, price, quantity):
@@ -44,10 +45,28 @@ def update_product_qty(product_id,qty):
     print("Product quantity updated successfully")
 
 
+#--------- customer details add by customer  -----------
+def create_customer_details(first_name,last_name):
+    cursor = connection.cursor()
+    cursor.execute("SELECT ID FROM USER WHERE EMAIL = '%s'" %(user_email))
+    user_id = cursor.fetchone()[0]
+    cursor.execute("BEGIN TRANSACTION;")
+    cursor.execute("INSERT INTO CUSTOMER ('FIRSTNAME','LASTNAME','USERID') VALUES ('%s','%s','%d')" %(first_name,last_name,user_id) )
+    cursor.fetchone()
+    #cursor.execute("COMMIT;")
+    return user_id
+
+def store_order_details(user_id,vehicleid,origin,destination,price):
+    cursor = connection.cursor()
+    cursor.execute("SELECT ID FROM CUSTOMER WHERE ID = '%d'" %(user_id))
+    customer_id = cursor.fetchone()[0]
+    cursor.execute("INSERT INTO ORDERS('CUSTOMERID', 'VEHICLEID','ORIGIN','DESTINATION','PRICE') VALUES ('%d','%d','%d', '%d', '%d')" %(customer_id, vehicleid, origin,destination,price))
+    cursor.execute("COMMIT;")
+
 # Function to add a vehicle in the database
 def save_vehicle(vehicle_type):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO VEHICLE(TYPE) VALUES (?)", (vehicle_type,))
+    cursor.execute("INSERT INTO VEHICLE(TYPE) VALUES (?)", (vehicle_type))
     cursor.execute("COMMIT;")
 
 

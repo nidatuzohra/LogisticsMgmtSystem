@@ -1,49 +1,101 @@
-import  customerOperations
+import adminOperations
+import customerOperations
 
 def customer():
     print("Welcome to Logistic System.")
-    # list_item = ["T-shirt", "Pents", "Jackets", "Shoose", "Tracks"]  # dictionary add and add database
     list_item = customerOperations.show_product()
     cart = []
+    options = []
     while True:
-        print("what you want to buy:")
-        print("     ITEMS   PRICE  QUANTITY")
+        print("Id   ITEMS    PRICE   QUANTITY")
+        dash = '-' * 33
+        print(dash)
         for item_index in (list_item):
-            print(item_index[0], "  ", item_index[1], "  ", item_index[2], "  ", item_index[3])
-        choose = input("what you want to buy:")
-        quantity = int(input("how much you wnat to buy"))
-        # cart.append(choose)   #fatch from databse
-        customerOperations.add_to_cart(cart, choose, quantity)
-        break_loop = input("would you like to add more? Y/N")
+            if item_index[3] > 0 :
+                print('{:<5d}{:<10s}{:<10.2f}{:<5d}'.format(item_index[0], item_index[1], item_index[2], item_index[3]))
+                options.append(item_index[0])
+        print(dash)
+        correct_option = True
+        while correct_option:
+            try:
+                choose = int(input("Enter  Item code: "))
+                if choose in options:
+                    quantity = int(input("Insert Item Quantity: "))
+                    correct_option = False
+                else:
+                    print("OPPS!! Please Insert proper Product Number\n ")
+                    continue
+            except ValueError:
+                print("OPPS!! Character value is not allow Please select Integer Number")
+                print("Please, try again \n")
+                continue
+
+            value_check = customerOperations.add_to_cart(cart, choose, quantity)
+            if value_check == False:
+                print("Sorry, Quantity is not Available")
+                quantity = 0
+                again_buy = input("Would you like to Buy another product? Y/N : ")
+                if (again_buy == 'n' or again_buy == 'N' or again_buy == 'No'):
+                    print("Thank You for visit !!")
+                    quit()
+                else:
+                    again_ask = 0
+                    break   # add exit menu
+        break_loop = input("\nWould you like to add more? Y/N: ")
+        list_item = customerOperations.show_product()
         if(break_loop == 'n' or break_loop == 'N' or break_loop == 'No'):
             break
 
     vehicles = customerOperations.show_vehicle()
+    print("\nAvailable Transportaion Options\n",dash)
+    list_vehicle_no = []
     for vehicle in vehicles:
-        print(vehicle[0], "  ", vehicle[1])
-    selected_vehicle = input("Select your delivery mode")
+        print(vehicle[0], " ", vehicle[1])
+        list_vehicle_no.append(vehicle[0])
+    print(dash)
+    selected_vehicle = customerOperations.fetch_value(list_vehicle_no,"Select your delivery mode: ")
 
-    print("Select country number from below list")
+
+    print("\nAvailble countries for Services ")
     country_list = customerOperations.show_location()
+    list_country_no = []
     for county in country_list:
         print(county[0], "  ", county[1])
-    send_parsel_country = int(input())
+        list_country_no.append(county[0])
+    origin_country = customerOperations.fetch_value(list_vehicle_no,"Select Pickup Country: ")
+    destination_country = customerOperations.fetch_value(list_vehicle_no,"Select Destination country: ")
+    if origin_country == destination_country :
+        print("Sorry To inform You, This service only for International")
+        quit()
 
+    print("\nPlease Provide Your personal details for order")
     first_name = input("Enter your first name: ")
     last_name = input("Enter Your last name: ")
-    send_parsel_address = input("Address for delivery : ")  # address add?
+    contact_no = int(input("Enter your phone Number: "))
+    user_id=adminOperations.create_customer_details(first_name,last_name)
 
-    print("---------   INVOICE    ------")
+    print()
+    print("------   LOGISTIC SYSTEM   ------")
     print("Name: ", first_name, " ", last_name)
-    print("Address:", send_parsel_address)
-    print(cart)
-    # for item in range(len(cart)) :
-    #     print(item,item[item][1])
-    print("your order is almost done \n How would you like to pay:")
-    pay = int(input("1)credit/debit card  2) cash on delivery"))
+    print("Contact: ",contact_no)
+    total = 0
+    cross= 'x' * 33
+    print(cross)
+    for item in cart:
+        print('{:<5d}{:<10s}{:<10.2f}{:<5d}'.format(item_index[0], item_index[1], item_index[2], item_index[3]))
+        total += item[3]
+    print(cross)
+    print("Total Amount : ",total)
+    print("\nyour order is almost done \n \n---------   PAYMENT     ---------")
+    pay = int(input("1) credit/debit card \n2) cash on delivery\nHow would you like to Pay:"))
     if pay == 1:
-        card_no = int(input("Enter credit or debit card number:"))
-    confirm = input("Payment Conform?")
-    customerOperations.end_user(confirm)
-    print("Order is successfully ")
-    customerOperations.end_user(1)
+        card_no = int(input("Enter credit or debit card number: "))
+    confirm = input("\nPayment Conform? Y/N : ")
+
+    if (confirm == 'y' or confirm == 'Y' or confirm == 'YES' or confirm == 'Yes'):
+        adminOperations.store_order_details(user_id,selected_vehicle, origin_country, destination_country, total)
+
+    if (confirm == 'n' or confirm == 'N' or confirm == 'NO' or confirm == 'no'):
+        adminOperations.rollback()
+
+    print("\nOrder is successfully ")
