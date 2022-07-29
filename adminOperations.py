@@ -39,35 +39,6 @@ def save_product(name, price, quantity):
     cursor.close()
 
 
-# Function to update the quantity of a product based on product id
-def update_product_qty(product_id,qty):
-    cursor = connection.cursor()
-    cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
-    product_qty = cursor.fetchone()
-    new_qty = product_qty[0] - qty   # it will update due to customer new quanity
-    cursor.execute("UPDATE PRODUCT SET QUANTITY = ? WHERE ID = ?", [new_qty, product_id])
-    cursor.execute("COMMIT;")
-    print("Product quantity updated successfully")
-
-
-#--------- customer details add by customer  -----------
-def create_customer_details(first_name,last_name):
-    cursor = connection.cursor()
-    cursor.execute("SELECT ID FROM USER WHERE EMAIL = '%s'" %(user_email))
-    user_id = cursor.fetchone()[0]
-    cursor.execute("BEGIN TRANSACTION;")
-    cursor.execute("INSERT INTO CUSTOMER ('FIRSTNAME','LASTNAME','USERID') VALUES ('%s','%s','%d')" %(first_name,last_name,user_id) )
-    cursor.fetchone()
-    #cursor.execute("COMMIT;")
-    return user_id
-
-def store_order_details(user_id,vehicleid,origin,destination,price):
-    cursor = connection.cursor()
-    cursor.execute("SELECT ID FROM CUSTOMER WHERE ID = '%d'" %(user_id))
-    customer_id = cursor.fetchone()[0]
-    cursor.execute("INSERT INTO ORDERS('CUSTOMERID', 'VEHICLEID','ORIGIN','DESTINATION','PRICE') VALUES ('%d','%d','%d', '%d', '%d')" %(customer_id, vehicleid, origin,destination,price))
-    cursor.execute("COMMIT;")
-
 # Function to add a vehicle in the database
 def save_vehicle(vehicle_type):
     cursor = connection.cursor()

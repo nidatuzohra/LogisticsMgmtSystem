@@ -30,7 +30,7 @@ while noExit:
                 if choice == 1:  # admin(1)
                     adminMenu.adminMenu()
                 else:  # customer(2)
-                    customer.customer()
+                    customer.customer(loginId)
             else:
                 print('Wrong password!')
 
