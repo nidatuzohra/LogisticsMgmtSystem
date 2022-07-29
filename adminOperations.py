@@ -13,6 +13,7 @@ def check_login_id(loginid):
     else:
         return True
 
+
 # function to check the password
 def checkPswd(loginid, pswd):
     cursor = connection.cursor()
@@ -33,12 +34,31 @@ def save_product(name, price, quantity):
     cursor.close()
 
 
+# Function to check product id
+def check_product_id(product_id):
+    cursor = connection.cursor()
+    cursor.execute("SELECT ID FROM PRODUCT Where ID= '%s'" % product_id)
+    prod_id = cursor.fetchone()
+    if prod_id == None:
+        return False
+    else:
+        return True
+
+
+# Function to list all product
+def show_all_product():
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM PRODUCT")
+    prod = cursor.fetchall()
+    return prod
+    cursor.close()
+
+
 # Function to update the quantity of a product based on product id
-def update_product_qty(product_id):
+def update_product_qty(product_id, new_qty):
     cursor = connection.cursor()
     cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
     product_qty = cursor.fetchone()
-    new_qty = product_qty[0] + 1
     cursor.execute("UPDATE PRODUCT SET QUANTITY = ? WHERE ID = ?", [new_qty, product_id])
     cursor.execute("COMMIT;")
     print("Product quantity updated successfully")

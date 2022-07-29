@@ -1,10 +1,13 @@
 import adminOperations
+import re
+
 
 def adminMenu():
     noAdminExit = True
 
     while noAdminExit:
-        print("\nChoose an option  \n 1-Add Product \n 2-Update product Quantity \n 3-Add Vehicle \n 4-Add Location \n 5-Generate Reports \n 6-Create customer \n 7-Logout")
+        print(
+            "\nChoose an option  \n 1-Add Product \n 2-Update product Quantity \n 3-Add Vehicle \n 4-Add Location \n 5-Generate Reports \n 6-Create customer \n 7-Logout")
         try:
             choice = int(input("Select an option: "))
         except ValueError:
@@ -19,35 +22,60 @@ def adminMenu():
                     Name = input(" Enter Product Name: ")
                     Name = Name.strip().lower()
                     Name = str(Name)
-                    if Name != '':
-                        try:
-                            Price = input(" Enter Price: ")
-                            Price = float(Price)
-                            Quantity = int(input(" Enter Quantity: "))
-                        except ValueError:
-                            print("Provide appropriate value")
-                            continue
-                    else:
-                        print("Provide appropriate value")
-                        continue
+                except TypeError:
+                    print("Provide appropriate value")
+                    continue
+                check = re.compile(r'[a-zA-Z]*$')
+                if check.match(Name) and Name != '':
+                    error_entry = False
+                    break
+                else:
+                    print("Provide appropriate value(only characters)")
+                    continue
+
+            error_entry1 = True
+            while error_entry1:
+                try:
+                    Price = input(" Enter Price: ")
+                    Price = float(Price)
                 except ValueError:
                     print("Provide appropriate value")
                     continue
 
-                if Price == '' or Quantity == '':
+                if Price == ' ':
+                    print("Provide appropriate value")
+                    continue
+                else:
+                    error_entry1 = False
+                    break
+
+            error_entry2 = True
+            while error_entry2:
+                try:
+                    Quantity = int(input(" Enter Quantity: "))
+                except ValueError:
+                    print("Provide appropriate value")
+                    continue
+
+                if Quantity == '':
                     print("Provide appropriate value")
                     continue
                 else:
                     adminOperations.save_product(Name, Price, Quantity)
-                    print('Product added')
-                    error_entry = False
+                    print('%s Products added successfully', Quantity)
+                    error_entry2 = False
                     break
+
         elif choice == 2:  # admin(2)
-            #TODO Show all the products here
+            # TODO Show all the products here
             print("You have selected Update product Quantity option")
             print("***Update Product Quantity***")
-            error_entry = True
-            while error_entry:
+            print("Please select Product ID from Below List")
+            prod_list = adminOperations.show_all_product()
+            for i in prod_list:
+                print(i)
+            error_entry3 = True
+            while error_entry3:
                 try:
                     Product_Id = input(" Enter Product ID: ")
                     Product_Id = int(Product_Id)
@@ -55,14 +83,30 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
 
-                if Product_Id == '':
-                    # TODO Validate if productId exists or not
-                    print("Provide appropriate value")
+                id_check = adminOperations.check_product_id(Product_Id)
+                print(id_check)
+                if not id_check:
+                    print("Id is not present in database")
                     continue
                 else:
-                    adminOperations.update_product_qty(Product_Id)
-                    error_entry = False
-                    break
+                    error_entry4 = True
+                    while error_entry4:
+                        try:
+                            Product_Qty = input(" Enter Product Qty: ")
+                            Product_Qty = int(Product_Qty)
+                        except ValueError:
+                            print("Provide appropriate value")
+                            continue
+
+                        if Product_Qty == ' ':
+                            print("Product quantity cannot be null.")
+                            continue
+                        else:
+                            adminOperations.update_product_qty(Product_Id, Product_Qty)
+                            print("Successfully Updated the {0} quantity for Product ID {1}.".format(Product_Qty,
+                                                                                                     Product_Id))
+                            error_entry3 = False
+                            break
 
         elif choice == 3:  # admin(3)
             print("You have selected Add Vehicle option")
@@ -82,7 +126,7 @@ def adminMenu():
                     continue
                 else:
                     adminOperations.save_vehicle(Vehicle_Type)
-                    # TODO Show success message
+                    print(" %s is added successfully", Vehicle_Type)
                     error_entry = False
                     break
 
@@ -104,7 +148,7 @@ def adminMenu():
                     continue
                 else:
                     adminOperations.save_location(Add_Location)
-                    # TODO Show success message
+                    print(" %s is added successfully", Add_Location)
                     error_entry = False
                     break
 
