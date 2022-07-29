@@ -72,8 +72,9 @@ def adminMenu():
             print("***Update Product Quantity***")
             print("Please select Product ID from Below List")
             prod_list = adminOperations.show_all_product()
+            print("ID    ITEMS          PRICE          QUANTITY")
             for i in prod_list:
-                print(i)
+                print(i[0], " | ", i[1], "          ", i[2], "          ", i[3])
             error_entry3 = True
             while error_entry3:
                 try:
@@ -102,7 +103,7 @@ def adminMenu():
                             print("Product quantity cannot be null.")
                             continue
                         else:
-                            adminOperations.update_product_qty(Product_Id, Product_Qty)
+                            adminOperations.admin_update_product_qty(Product_Id, Product_Qty)
                             print("Successfully Updated the {0} quantity for Product ID {1}.".format(Product_Qty,
                                                                                                      Product_Id))
                             error_entry3 = False
