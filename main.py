@@ -17,12 +17,7 @@ while noExit:
         print("Exit")
         noExit = False
 
-    else:
-        # if choice == 2:
-        #     new_customer_account = input("1-LOG IN \n2-SIGNUP\nChoose your option ")
-        #     if new_customer_account == 2:
-        #         print("")
-
+    elif choice == 1 or choice == 2:
         loginId = input("Enter login Id: ").lower()
         password = input("Enter password: ")
         user = adminOperations.check_login_id(loginId)
@@ -30,7 +25,7 @@ while noExit:
         if not user:  # User not found
             print('User not found!')
         else:
-            userAuth = adminOperations.checkPswd(loginId, password)
+            userAuth = adminOperations.checkPswd(loginId, password, choice)
             if userAuth:
                 if choice == 1:  # admin(1)
                     adminMenu.adminMenu()

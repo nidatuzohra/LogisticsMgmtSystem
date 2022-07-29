@@ -6,7 +6,7 @@ def customer():
     list_item = customerOperations.show_product()
     cart = []
     options = []
-    print("\nChoose option \n 1-Select products \n 2-Exit \n")
+    print("\nChoose option \n 1-Select products \n 2-Logout \n")
     cust_choice = int(input('Select an option'))
 
     custExit = True

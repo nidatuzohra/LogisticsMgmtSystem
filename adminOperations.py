@@ -16,12 +16,17 @@ def check_login_id(loginid):
         return True
 
 # function to check the password
-def checkPswd(loginid, pswd):
+def checkPswd(loginid, pswd, selectedRole):
     cursor = connection.cursor()
-    cursor.execute("SELECT PASSWORD FROM USER Where EMAIL= '%s'" % loginid)
-    password = cursor.fetchone()[0]
+    cursor.execute("SELECT PASSWORD, ROLE FROM USER Where EMAIL= '%s'" % loginid)
+    details = cursor.fetchall()
+    password = details[0][0]
+    role = details[0][1]
     if password == pswd:
-        return True
+        if selectedRole == 1 and role == 'A' or selectedRole == 2 and role == 'C':
+            return True
+        else:
+            return False
     else:
         return False
 
