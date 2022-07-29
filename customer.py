@@ -4,8 +4,8 @@ import utils
 
 def customer(email_id):
     print("Welcome to Logistic System.")
-    print("\nChoose option \n 1-Select products \n 2-Logout \n")
-    cust_choice = int(input('Select an option'))
+    print("\nChoose an option \n 1-Select products \n 2-Logout")
+    cust_choice = int(input('Select an option: '))
     custExit = True
     while custExit:
         list_item = customerOperations.show_product()
@@ -31,40 +31,42 @@ def customer(email_id):
                     break
 
             vehicles = customerOperations.show_vehicle()
-            print("\nAvailable Transportaion Options\n")
-            utils.print_desh()
+            print("\nAvailable transportation options\n")
+            utils.print_dash()
             list_vehicle_no = []
             for vehicle in vehicles:
                 print(vehicle[0], " ", vehicle[1])
                 list_vehicle_no.append(vehicle[0])
-            utils.print_desh()
+            utils.print_dash()
             selected_vehicle = customerOperations.fetch_value(list_vehicle_no,"Select your delivery mode: ")
 
             while True:
-                print("\nAvailble countries for Services ")
-                utils.print_desh()
+                print("\nAvailable countries")
+                utils.print_dash()
                 country_list = customerOperations.show_location()
                 list_country_no = []
                 for county in country_list:
                     print(county[0], "  ", county[1])
                     list_country_no.append(county[0])
-                utils.print_desh()
-                origin_country = customerOperations.fetch_value(list_vehicle_no, "Select Pickup Country: ")
-                destination_country = customerOperations.fetch_value(list_vehicle_no, "Select Destination country: ")
+                utils.print_dash()
+                origin_country = customerOperations.fetch_value(list_vehicle_no, "Select pickup: ")
+                destination_country = customerOperations.fetch_value(list_vehicle_no, "Select destination: ")
                 if origin_country == destination_country:
-                    print("Sorry To inform You, This service only for International")
+                    print("Sorry pickup and destination can't be same!")
                 else:
                     break
 
             total = utils.print_invoice(cart)
 
-            print("\nyour order is almost done \n \n---------   PAYMENT     ---------")
-            confirm = utils.check_value("Would you like to confirm the payment?\n1)YES \n 2)NO\nSelect option: ",[1,2])
+            print("\nYour order is almost done \n \n---------   PAYMENT     ---------")
+            confirm = utils.check_value("Would you like to confirm the payment?\n1)YES \n2)NO\nSelect option: ",[1,2])
             if confirm == 1:
                 customerOperations.store_order_details(email_id,selected_vehicle, origin_country, destination_country, total)
-                print("\nOrder is successfully ")
+                print("Transaction successful!!!")
+                print("Order has been placed!!!")
                 custExit = False
             if confirm == 2:
                 customerOperations.rollback_qty(cart)
-                print("Thank you visit again !!!")
+                print("Transaction failed!")
+                print("Thank you visit again!!!")
                 custExit = False

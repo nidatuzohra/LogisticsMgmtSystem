@@ -22,20 +22,20 @@ def check_value(statment,options=[]):
             print("Please, try again \n")
             continue
 
-def print_desh():
+def print_dash():
     dash = '-' * 33
     print(dash)
 
 def print_menu(list_item,options):
     print("NO   ITEMS    PRICE   QUANTITY")
-    print_desh()
+    print_dash()
     count = 1
     for prodItem in list_item:
         if prodItem[3] > 0:
             print('{:<5d}{:<10s}{:<10.2f}{:<5d}'.format(count, prodItem[1], prodItem[2], prodItem[3]))
             options[count] = prodItem[0]
             count += 1
-    print_desh()
+    print_dash()
     return options
 
 def print_invoice(cart):
