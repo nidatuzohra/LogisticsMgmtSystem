@@ -1,5 +1,4 @@
 # Common functions will be defined here
-
 def check_is_digit(input_str):
     if input_str.strip().isdigit():
         print("User input is Number")
@@ -37,6 +36,7 @@ def print_menu(list_item,options):
             options[count] = prodItem[0]
             count += 1
     print_desh()
+    return options
 
 def print_invoice(cart):
     print()
