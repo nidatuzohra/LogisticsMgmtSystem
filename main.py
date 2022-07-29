@@ -17,7 +17,7 @@ while noExit:
         print("Exit")
         noExit = False
 
-    elif choice == 1 or choice == 2:
+    else:
         loginId = input("Enter login Id: ").lower()
         password = input("Enter password: ")
         user = adminOperations.check_login_id(loginId)
