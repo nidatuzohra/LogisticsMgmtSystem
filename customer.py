@@ -16,8 +16,8 @@ def customer(email_id):
         else:
             while True:
                 utils.print_menu(list_item, options)
-                choose = utils.check_value("Enter Item code: ",options)
-                quantity = utils.check_value("Insert Item Quantity: ",[])
+                choose = utils.check_value("Enter item no.: ",options)
+                quantity = utils.check_value("Insert item quantity: ",[])
                 product_item = options[choose]
                 value_check = customerOperations.add_to_cart(cart, product_item, quantity)
 

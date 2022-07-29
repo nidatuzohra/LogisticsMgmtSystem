@@ -27,7 +27,7 @@ def print_dash():
     print(dash)
 
 def print_menu(list_item,options):
-    print("NO   ITEMS    PRICE   QUANTITY")
+    print("NO.   ITEMS    PRICE   QUANTITY")
     print_dash()
     count = 1
     for prodItem in list_item:
