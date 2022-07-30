@@ -1,6 +1,5 @@
 import adminOperations
 import adminMenu
-import customerOperations
 import customer
 
 noExit = True
@@ -16,6 +15,7 @@ while noExit:
     if choice == 3:
         print("Exit")
         noExit = False
+
     else:
         loginId = input("Enter login Id: ").lower()
         password = input("Enter password: ")
@@ -24,13 +24,12 @@ while noExit:
         if not user:  # User not found
             print('User not found!')
         else:
-            userAuth = adminOperations.checkPswd(loginId, password)
+            userAuth = adminOperations.checkPswd(loginId, password, choice)
             if userAuth:
                 if choice == 1:  # admin(1)
                     adminMenu.adminMenu()
                 else:  # customer(2)
-                    print("Show customer options")  # remove this after adding code for customer
-                    customer.customer()
+                    customer.customer(loginId)
             else:
                 print('Wrong password!')
 

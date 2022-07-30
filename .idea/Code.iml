@@ -3,10 +3,14 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="inheritedJdk" />
 =======
     <orderEntry type="jdk" jdkName="Python 3.9" jdkType="Python SDK" />
 >>>>>>> fdbedbec89587e140d2866e8ab8723654d8478ef
+=======
+    <orderEntry type="inheritedJdk" />
+>>>>>>> customer_code
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

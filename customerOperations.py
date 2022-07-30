@@ -3,19 +3,28 @@ import adminOperations
 
 connection = sqlite3.connect("logisticsdb.db")
 
+# Function to update the quantity of a product based on product id
+def update_product_qty(product_id,qty):
+    cursor = connection.cursor()
+    cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
+    product_qty = cursor.fetchone()
+    new_qty = product_qty[0] - qty   # it will update due to customer new quanity
+    cursor.execute("UPDATE PRODUCT SET QUANTITY = ? WHERE ID = ?", [new_qty, product_id])
+    cursor.execute("COMMIT;")
+
 # Function that checks availability and adds product to the cart
 def add_to_cart(cart, product_id, qty):
     cursor = connection.cursor()
     cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % product_id)
     product_qty = int(cursor.fetchone()[0])
     if qty > product_qty:
-        return -1
+        return False
     else:
         cursor.execute("SELECT * FROM PRODUCT WHERE ID= '%s'" % product_id)
         product_details = cursor.fetchone()
-        #cart.append(product_details)
-        cart.append([product_details[0], product_details[1], qty, qty * product_details[2]])
-        adminOperations.update_product_qty(product_id, qty)
+        total = float(qty * product_details[2])
+        cart.append([product_details[0], product_details[1], qty, total])
+        update_product_qty(product_id, qty)
         return cart
 
 def show_product():
@@ -23,7 +32,7 @@ def show_product():
     cursor.execute("SELECT * FROM PRODUCT")
     available_product = cursor.fetchall()
     if available_product is None:
-        return -1
+        return False
     else:
         return available_product
 
@@ -36,6 +45,21 @@ def show_vehicle():
     else:
         return available_vehicle
 
+def fetch_value(total_value,statment):
+    while True:
+        try:
+            # selected_no = int(input("Select your delivery mode: "))
+            selected_no = int(input(statment))
+            if selected_no in total_value:
+                return selected_no
+            else:
+                print("OPPS!! Please Insert proper Product Number\n ")
+                continue
+        except ValueError:
+            print("OPPS!! Character value is not allow Please select Integer Number")
+            print("Please, try again \n")
+            continue
+
 def show_location():
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM LOCATION")
@@ -45,12 +69,25 @@ def show_location():
     else:
         return available_country
 
-def end_user(confirm):
-    cursor = connection.cursor()
-    if (confirm == 'y' or confirm == 'Y' or confirm == 'YES' or confirm == 'Yes'):
-        cursor.execute("COMMIT;")
-    if (confirm == 'n' or confirm == 'N' or confirm == 'NO' or confirm == 'no'):
-        cursor.execute("ROLLBACK;")
 
-# -------------------------------------------------------------------------------
+def store_order_details(email_id,vehicleid,origin,destination,price):
+    cursor = connection.cursor()
+    cursor.execute("SELECT ID FROM USER WHERE EMAIL = '%s'" % (email_id))
+    user_id = cursor.fetchone()[0]
+    cursor.execute("SELECT ID FROM CUSTOMER WHERE ID = '%d'" %(user_id))
+    customer_id = cursor.fetchone()[0]
+    cursor.execute("INSERT INTO ORDERS('CUSTOMERID', 'VEHICLEID','ORIGIN','DESTINATION','PRICE') VALUES ('%d','%d','%d', '%d', '%d')" %(customer_id, vehicleid, origin,destination,price))
+    cursor.execute("COMMIT;")
+
+def rollback_qty(cart):
+    print(cart)
+    cursor = connection.cursor()
+    for item in cart:
+        qty = item[2]
+        cursor.execute("SELECT QUANTITY FROM PRODUCT Where ID= '%s'" % item[0])
+        product_qty = cursor.fetchone()
+        new_qty = product_qty[0] + qty  # it will update due to customer new quanity
+        cursor.execute("UPDATE PRODUCT SET QUANTITY = ? WHERE ID = ?", [new_qty, item[0]])
+    cursor.execute("COMMIT;")
+# # -------------------------------------------------------------------------------
 # connection.close()
