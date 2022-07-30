@@ -1,5 +1,7 @@
 import adminOperations
 import re
+import customerOperations
+import utils
 
 
 def adminMenu():
@@ -72,10 +74,10 @@ def adminMenu():
             print("You have selected Update product Quantity option")
             print("***Update Product Quantity***")
             print("Please select Product ID from Below List")
-            prod_list = adminOperations.show_all_product()
-            print("ID    ITEMS          PRICE          QUANTITY")
-            for i in prod_list:
-                print(i[0], " | ", i[1], "          ", i[2], "          ", i[3])
+            list_item = customerOperations.show_product()
+            options = {}
+            role = "A"
+            utils.print_menu(list_item, options, role)
             error_entry3 = True
             while error_entry3:
                 try:
@@ -113,8 +115,8 @@ def adminMenu():
         elif choice == 3:  # admin(3)
             print("You have selected Add Vehicle option")
             print("***ADD VEHICLE***")
-            error_entry = True
-            while error_entry:
+            error_entry5 = True
+            while error_entry5:
                 try:
                     Vehicle_Type = input(" Enter Vehicle Name: ")
                     Vehicle_Type = Vehicle_Type.strip().lower()
@@ -123,20 +125,21 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
 
-                if Vehicle_Type == '':
-                    print("Provide appropriate value")
-                    continue
-                else:
+                v_check = re.compile(r'[a-zA-Z]*$')
+                if v_check.match(Vehicle_Type) and Vehicle_Type != '':
                     adminOperations.save_vehicle(Vehicle_Type)
                     print("{} is added successfully".format(Vehicle_Type))
-                    error_entry = False
+                    error_entry5 = False
                     break
+                else:
+                    print("Provide appropriate value(Character only)")
+                    continue
 
         elif choice == 4:  # admin(4)
             print("You have selected Add Location option")
             print("***Add Location***")
-            error_entry = True
-            while error_entry:
+            error_entry6 = True
+            while error_entry6:
                 try:
                     Add_Location = input(" Enter Add Location: ")
                     Add_Location = Add_Location.strip().lower()
@@ -145,14 +148,15 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
 
-                if Add_Location == '':
-                    print("Provide appropriate value")
-                    continue
-                else:
+                Loc_check = re.compile(r'[a-zA-Z]*$')
+                if Loc_check.match(Add_Location) and Add_Location != '':
                     adminOperations.save_location(Add_Location)
                     print(" {} is added successfully".format(Add_Location))
-                    error_entry = False
+                    error_entry6 = False
                     break
+                else:
+                    print("Provide appropriate value")
+                    continue
 
         elif choice == 5:  # admin(5)
             print("You have selected Generate report option")

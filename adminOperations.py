@@ -3,6 +3,7 @@ import sqlite3
 connection = sqlite3.connect("logisticsdb.db")
 user_email = ""
 
+
 # Function to check user login information - different py file?
 def check_login_id(loginid):
     global user_email
@@ -31,6 +32,7 @@ def checkPswd(loginid, pswd, selectedRole):
     else:
         return False
 
+
 # Function to save customer details in the database
 def save_customer(email, pwd, first_name, last_name):
     cursor = connection.cursor()
@@ -42,6 +44,7 @@ def save_customer(email, pwd, first_name, last_name):
     cursor.execute("COMMIT;")
     cursor.close()
 
+
 # Function to add a product in the database
 def save_product(name, price, quantity):
     cursor = connection.cursor()
@@ -49,6 +52,7 @@ def save_product(name, price, quantity):
     cursor.execute("INSERT INTO PRODUCT(PRODUCTSNAME, PRICE, QUANTITY) VALUES (?, ?, ?)", data)
     cursor.execute("COMMIT;")
     cursor.close()
+
 
 # Function to check product id
 def check_product_id(product_id):
@@ -90,10 +94,11 @@ def update_product_qty(product_id, qty):
     cursor.execute("COMMIT;")
     print("Product quantity updated successfully")
 
+
 # Function to add a vehicle in the database
 def save_vehicle(vehicle_type):
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO VEHICLE(TYPE) VALUES (?)", (vehicle_type))
+    cursor.execute("INSERT INTO VEHICLE(TYPE) VALUES (?)", (vehicle_type,))
     cursor.execute("COMMIT;")
 
 
