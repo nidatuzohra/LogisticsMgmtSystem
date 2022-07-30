@@ -20,12 +20,12 @@ def print_dash():
     dash = '-' * 33
     print(dash)
 
-def print_menu(list_item,options):
+def print_menu(list_item,options,role = "C"):
     print("NO.   ITEMS    PRICE   QUANTITY")
     print_dash()
     count = 1
     for prodItem in list_item:
-        if prodItem[3] > 0:
+        if role == "C" and prodItem[3] > 0 or role == "A":
             print('{:<5d}{:<10s}{:<10.2f}{:<5d}'.format(count, prodItem[1], prodItem[2], prodItem[3]))
             options[count] = prodItem[0]
             count += 1

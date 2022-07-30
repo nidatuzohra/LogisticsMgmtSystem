@@ -25,6 +25,7 @@ def adminMenu():
                 except TypeError:
                     print("Provide appropriate value")
                     continue
+
                 check = re.compile(r'[a-zA-Z]*$')
                 if check.match(Name) and Name != '':
                     error_entry = False
@@ -161,7 +162,6 @@ def adminMenu():
             print("You have selected Create customer option")
             # TODO Create customer
             print("***Create Customer***")
-            print("Please select Product ID from Below List")
             error_entry7 = True
             while error_entry7:
                 try:
@@ -171,44 +171,52 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
 
-                id = adminOperations.check_login_id(Email_Id)
-                print(id)
-                if id:
-                    print("Email is already present in database")
+                val_email = re.compile(r'[\b[A-Za-z0-9._]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b]*$')
+                if not val_email.match(Email_Id):
+                    print("Provide a valid email Id(example@gmail.com)")
                     continue
                 else:
-                    error_entry8 = True
-                    while error_entry8:
-                        try:
-                            Password = input(" Enter Password: ")
-                            Password = str(Password)
-                        except ValueError:
-                            print("Provide appropriate value")
-                            continue
-
-                        if Password == ' ':
-                            print("Provide appropriate value")
+                    id = adminOperations.check_login_id(Email_Id)
+                    print(id)
+                    if not Email_Id:
+                        print("Email Id cannot be blank.")
+                    else:
+                        if id:
+                            print("User is already exist")
                             continue
                         else:
-                            error_entry9 = True
-                            while error_entry9:
+                            error_entry8 = True
+                            while error_entry8:
                                 try:
-                                    Fst_Name = input(" Enter First Name: ")
-                                    Lst_Name = input(" Enter First Name: ")
-                                    Fst_Name = str(Fst_Name)
-                                    Lst_Name = str(Lst_Name)
-                                except ValueError:
+                                    Password = input(" Enter Password: ")
+                                    Password = str(Password)
+                                except TypeError:
                                     print("Provide appropriate value")
                                     continue
 
-                                if Password == ' ':
+                                if not Password:
                                     print("Provide appropriate value")
                                     continue
                                 else:
-                            adminOperations.save_customer(email, pwd, first_name, last_name)
-                            print("Successfully Updated the {0} email.".format(email))
-                            error_entry7 = False
-                            break
+                                    error_entry9 = True
+                                    while error_entry9:
+                                        try:
+                                            Fst_Name = input(" Enter First Name: ")
+                                            Lst_Name = input(" Enter Last Name: ")
+                                            Fst_Name = str(Fst_Name)
+                                            Lst_Name = str(Lst_Name)
+                                        except TypeError:
+                                            print("Provide appropriate value")
+                                            continue
+
+                                        if not Fst_Name or not Lst_Name:
+                                            print("Provide appropriate value")
+                                            continue
+                                        else:
+                                            adminOperations.save_customer(Email_Id, Password, Fst_Name, Lst_Name)
+                                            print("Customer added successfully {0}.".format(Email_Id))
+                                            error_entry7 = False
+                                            break
 
         elif choice == 7:  # admin(7)
             print("Exit, Add logout code")
