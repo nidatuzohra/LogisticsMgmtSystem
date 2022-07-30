@@ -1,24 +1,18 @@
 # Common functions will be defined here
-def check_is_digit(input_str):
-    if input_str.strip().isdigit():
-        print("User input is Number")
-    else:
-        print("User input is string")
-
-def check_value(statment,options=[]):
+def check_value(statement,options=[]):
     while True:
         try:
-            value = int(input(statment))
+            value = int(input(statement))
             if len(options) != 0:
                 if value in options:
                     return value
                 else:
-                    print("OPPS!! Please select valid option \n ")
+                    print("OOPS!! Please select a valid option \n ")
                     continue
             else:
                 return value
         except ValueError:
-            print("OPPS!! Character value is not allow Please select Integer Number")
+            print("OOPS!! Character value is not allowed, please select a number")
             print("Please, try again \n")
             continue
 
@@ -40,7 +34,7 @@ def print_menu(list_item,options):
 
 def print_invoice(cart):
     print()
-    print("------   LOGISTIC SYSTEM   ------")
+    print("------   LOGISTICS SYSTEM   ------")
     total = 0
     cross = 'x' * 33
     print(cross)

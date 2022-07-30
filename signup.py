@@ -6,10 +6,10 @@ def check(statment):
             if len(question) > 2:
                 return question
             else:
-                print("\nOPPS!! Name should be more than 2 character is allowed\nplease try again\n ")
+                print("\nOOPS!! Name should be more than 2 character is allowed\nplease try again\n ")
                 continue
         except ValueError:
-            print("OPPS!! Please insert proper value ")
+            print("OOPS!! Please insert proper value ")
             print("Please, try again \n")
             continue
 

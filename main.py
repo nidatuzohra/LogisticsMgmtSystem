@@ -1,6 +1,5 @@
 import adminOperations
 import adminMenu
-import customerOperations
 import customer
 
 noExit = True

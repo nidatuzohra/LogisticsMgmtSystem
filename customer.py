@@ -22,7 +22,7 @@ def customer(email_id):
                 value_check = customerOperations.add_to_cart(cart, product_item, quantity)
 
                 if value_check == False:
-                    print("Sorry, Quantity is not Available\nPlease select Product again")
+                    print("Sorry, item not available\nPlease select different product.")
                     continue
 
                 break_loop = input("\nWould you like to add more? Y/N: ")
