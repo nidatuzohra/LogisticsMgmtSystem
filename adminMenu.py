@@ -42,7 +42,7 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
 
-                if Price == ' ':
+                if Price == ' ' or Price == "0" or Price < 1:
                     print("Provide appropriate value")
                     continue
                 else:
@@ -57,12 +57,12 @@ def adminMenu():
                     print("Provide appropriate value")
                     continue
 
-                if Quantity == '':
+                if Quantity == ' ' or Quantity == "0" or Quantity < 1:
                     print("Provide appropriate value")
                     continue
                 else:
                     adminOperations.save_product(Name, Price, Quantity)
-                    print('%s Products added successfully', Quantity)
+                    print('{} Product added successfully'.format(Name))
                     error_entry2 = False
                     break
 
@@ -99,8 +99,8 @@ def adminMenu():
                             print("Provide appropriate value")
                             continue
 
-                        if Product_Qty == ' ':
-                            print("Product quantity cannot be null.")
+                        if Product_Qty == ' ' or Product_Qty == "0" or Product_Qty < 1:
+                            print("Provide appropriate value(>0)")
                             continue
                         else:
                             adminOperations.admin_update_product_qty(Product_Id, Product_Qty)
@@ -127,7 +127,7 @@ def adminMenu():
                     continue
                 else:
                     adminOperations.save_vehicle(Vehicle_Type)
-                    print(" %s is added successfully", Vehicle_Type)
+                    print("{} is added successfully".format(Vehicle_Type))
                     error_entry = False
                     break
 
@@ -149,7 +149,7 @@ def adminMenu():
                     continue
                 else:
                     adminOperations.save_location(Add_Location)
-                    print(" %s is added successfully", Add_Location)
+                    print(" {} is added successfully".format(Add_Location))
                     error_entry = False
                     break
 
@@ -160,6 +160,56 @@ def adminMenu():
         elif choice == 6:  # admin(6)
             print("You have selected Create customer option")
             # TODO Create customer
+            print("***Create Customer***")
+            print("Please select Product ID from Below List")
+            error_entry7 = True
+            while error_entry7:
+                try:
+                    Email_Id = input(" Enter Email: ")
+                    Email_Id = str(Email_Id)
+                except ValueError:
+                    print("Provide appropriate value")
+                    continue
+
+                id = adminOperations.check_login_id(Email_Id)
+                print(id)
+                if id:
+                    print("Email is already present in database")
+                    continue
+                else:
+                    error_entry8 = True
+                    while error_entry8:
+                        try:
+                            Password = input(" Enter Password: ")
+                            Password = str(Password)
+                        except ValueError:
+                            print("Provide appropriate value")
+                            continue
+
+                        if Password == ' ':
+                            print("Provide appropriate value")
+                            continue
+                        else:
+                            error_entry9 = True
+                            while error_entry9:
+                                try:
+                                    Fst_Name = input(" Enter First Name: ")
+                                    Lst_Name = input(" Enter First Name: ")
+                                    Fst_Name = str(Fst_Name)
+                                    Lst_Name = str(Lst_Name)
+                                except ValueError:
+                                    print("Provide appropriate value")
+                                    continue
+
+                                if Password == ' ':
+                                    print("Provide appropriate value")
+                                    continue
+                                else:
+                            adminOperations.save_customer(email, pwd, first_name, last_name)
+                            print("Successfully Updated the {0} email.".format(email))
+                            error_entry7 = False
+                            break
+
         elif choice == 7:  # admin(7)
             print("Exit, Add logout code")
             noAdminExit = False
