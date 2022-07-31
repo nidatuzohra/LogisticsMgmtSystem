@@ -69,18 +69,33 @@ def show_location():
     else:
         return available_country
 
-
-def store_order_details(email_id,vehicleid,origin,destination,price):
+def get_user_id(email_id):
     cursor = connection.cursor()
     cursor.execute("SELECT ID FROM USER WHERE EMAIL = '%s'" % (email_id))
-    user_id = cursor.fetchone()[0]
-    cursor.execute("SELECT ID FROM CUSTOMER WHERE ID = '%d'" %(user_id))
+    user_id = int(cursor.fetchone()[0])
+    return user_id
+
+def store_order_details(user_id,vehicleid,origin,destination,price):
+    cursor = connection.cursor()
+    cursor.execute("SELECT ID FROM CUSTOMER WHERE USERID = '%d'" %(user_id))
     customer_id = cursor.fetchone()[0]
-    cursor.execute("INSERT INTO ORDERS('CUSTOMERID', 'VEHICLEID','ORIGIN','DESTINATION','PRICE') VALUES ('%d','%d','%d', '%d', '%d')" %(customer_id, vehicleid, origin,destination,price))
+    cursor.execute("INSERT INTO ORDERS ('CUSTOMERID', 'VEHICLEID','ORIGIN','DESTINATION','PRICE') VALUES ('%d','%d','%d', '%d', '%d')" %(customer_id, vehicleid, origin,destination,price))
     cursor.execute("COMMIT;")
 
+def store_oreder_items(user_id,cart):
+    cursor = connection.cursor()
+    cursor.execute("SELECT ID FROM CUSTOMER WHERE USERID = '%d'" %(user_id))
+    customer_id = cursor.fetchone()[0]
+    cursor.execute("SELECT ID FROM ORDERS WHERE CUSTOMERID = '%d'" %(customer_id))
+    order_id = cursor.fetchone()[0]
+    for item in cart:
+        qty = item[2]
+        product_id = item[0]
+        cursor.execute("INSERT INTO ORDERITEM ('ORDERID', 'PRODUCTID','QUANTITY') VALUES ('%d','%d','%d')" %(order_id,product_id,qty))
+        cursor.execute("COMMIT;")
+
+
 def rollback_qty(cart):
-    print(cart)
     cursor = connection.cursor()
     for item in cart:
         qty = item[2]

@@ -11,5 +11,5 @@
 3. The system will allow record locations profile.
 4. The system will allow record customer profile.
 5. The system will allow record the packs (product bought by the customer).
-6. The system will allow record the route (customer-vehicle-pack-locations)
-7. The system will allow to extract reports from the system (reports: table + graph)
+6. The system will allow record the route (customer-vehicle-pack-locations).
+7. The system will allow to extract reports from the system (reports: table + graph).
