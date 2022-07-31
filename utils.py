@@ -11,8 +11,8 @@ def check_value(statement,options=[]):
                 else:
                     print("OOPS!! Please select a valid option \n ")
                     continue
-            elif value < 0:
-                print("Negetive value is not allowed")
+            elif value < 1:
+                print("Invalid value.")
                 continue
             else:
                 return value
