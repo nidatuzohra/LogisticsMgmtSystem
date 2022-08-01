@@ -28,6 +28,7 @@ def showReportsOptions():
                 destination_list = adminOperations.get_all_destinations()
                 destination_freq = {x: destination_list.count(x) for x in destination_list}
                 destination_df = pd.DataFrame(destination_freq.items(), columns=['Destination', 'Count'])
+                print(destination_df)
                 plt.bar(destination_df['Destination'], destination_df['Count'])
                 plt.show()
             elif reportChoice == 2:
