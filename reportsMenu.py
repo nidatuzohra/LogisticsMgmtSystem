@@ -1,8 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import adminOperations
+import sqlite3
+
 
 def showReportsOptions():
+    connection = sqlite3.connect("logisticsdb.db")
+    cursor = connection.cursor()
     noReportExit = True
 
     while noReportExit:
@@ -23,7 +27,15 @@ def showReportsOptions():
         else:
             if reportChoice == 1:
                 print("All destinations sorted by frequencies.")
-                print("Add generating report fn here")
+                cursor.execute("SELECT COUNTRY FROM LOCATION JOIN ORDERS ON ORDERS.DESTINATION = LOCATION.ID")
+                data_list = cursor.fetchall()
+                destination_list = []
+                for x in range(len(data_list)):
+                    destination_list.append(data_list[x][0])
+                # destination_df = pd.DataFrame(destination_list, columns='Destination')
+                # destination_freq = destination_df['Destination'].value_counts()
+                # print(destination_freq)
+                # print(type(destination_freq))
             elif reportChoice == 2:
                 print("Customers placed most orders.")
                 allCustomers = adminOperations.get_AllCustomers()
