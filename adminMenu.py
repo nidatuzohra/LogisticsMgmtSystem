@@ -2,6 +2,7 @@ import adminOperations
 import re
 import customerOperations
 import utils
+import reportsMenu
 
 
 def adminMenu():
@@ -159,9 +160,8 @@ def adminMenu():
                     continue
 
         elif choice == 5:  # admin(5)
-            print("You have selected Generate report option")
-            print("***Generating report***")
-            adminOperations.generate_report()
+            reportsMenu.showReportsOptions()
+            # adminOperations.generate_report()
         elif choice == 6:  # admin(6)
             print("You have selected Create customer option")
             # TODO Create customer
