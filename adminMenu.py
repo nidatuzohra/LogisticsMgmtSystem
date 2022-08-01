@@ -10,7 +10,7 @@ def adminMenu():
 
     while noAdminExit:
         print(
-            "\nChoose an option  \n 1-Add Product \n 2-Update product Quantity \n 3-Add Vehicle \n 4-Add Location \n 5-Generate Reports \n 6-Create customer \n 7-Logout")
+            "\nChoose an option  \n 1-Add Product \n 2-Update Product Quantity \n 3-Add Vehicle \n 4-Add Location \n 5-Generate Reports \n 6-Create Customer \n 7-Logout")
         try:
             choice = int(input("Select an option: "))
         except ValueError:
@@ -224,7 +224,7 @@ def adminMenu():
                                             break
 
         elif choice == 7:  # admin(7)
-            print("Exit, Add logout code")
+            print("Successfully Logged out.")
             noAdminExit = False
         else:
             print("Invalid response.Provide appropriate value")

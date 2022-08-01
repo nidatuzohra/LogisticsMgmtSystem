@@ -14,16 +14,17 @@ def customer(email_id):
         options = {}
         if cust_choice == 2:
             custExit = False
+            print("Successfully logged out.")
         else:
             while True:
                 utils.print_menu(list_item, options)
-                choose = utils.check_value("Enter item no.: ",options)
-                quantity = utils.check_value("Insert item quantity: ",[])
+                choose = utils.check_value("Enter product no.: ",options)
+                quantity = utils.check_value("Insert product quantity: ",[])
                 product_item = options[choose]
                 value_check = customerOperations.add_to_cart(cart, product_item, quantity)
 
                 if value_check == False:
-                    print("Sorry, item not available\nPlease select different product.\n")
+                    print("\nPlease select appropriate product quantity.\n")
                     continue
 
                 break_loop = utils.check_value("\nWould you like to add more?\n1-YES\n2-NO \nSelect: ")
