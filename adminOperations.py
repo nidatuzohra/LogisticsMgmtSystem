@@ -125,5 +125,14 @@ def get_AllCustomers():
     # print(allCustomers)
     return allCustomers
 
+
+def get_all_destinations():
+    cursor = connection.cursor()
+    cursor.execute("SELECT COUNTRY FROM LOCATION JOIN ORDERS ON ORDERS.DESTINATION = LOCATION.ID")
+    data_list = cursor.fetchall()
+    destination_list = []
+    for x in range(len(data_list)):
+        destination_list.append(data_list[x][0])
+    return destination_list
 # --------------------------------------------------------------------------------
 # connection.close()
