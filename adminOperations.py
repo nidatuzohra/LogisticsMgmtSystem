@@ -117,7 +117,8 @@ def get_AllCustomers():
                    "FROM CUSTOMER LEFT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMERID "
                    "GROUP BY CUSTOMER.FIRSTNAME, CUSTOMER.LASTNAME;")
     allCustomers = cursor.fetchall()
-    print(allCustomers)
+    # print(allCustomers)
+    return allCustomers
 
 # --------------------------------------------------------------------------------
 # connection.close()
