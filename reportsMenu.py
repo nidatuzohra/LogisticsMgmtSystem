@@ -34,18 +34,10 @@ def showReportsOptions():
             elif reportChoice == 2:
                 print("Customers placed most orders.")
                 allCustomers = adminOperations.get_AllCustomers()
-                # print(allCustomers)
                 df = pd.DataFrame(allCustomers, columns=['CustomerId', 'FirstName', 'LastName', 'Total orders'])
                 print(df)
-
-                # fig = plt.figure(figsize=(9, 5))
-                # axis = fig.add_axes([0, 0, 1, 1])
-                # name = ['Jack', 'John', 'John Shakes', 'tester']
-                # axis.bar(name, df['Total orders'], edgecolor='black')
-                # axis.set_title('Customer placed most orders', fontsize=15, pad=10)
-                # axis.set_xlabel('Customers', fontsize=15)
-                # axis.set_ylabel('Orders', fontsize=15)
-                # plt.show()
+                plt.bar(df['FirstName'], df['Total orders'])
+                plt.show()
             elif reportChoice == 3:
                 print("Top 5 & Least 5 products ordered.")
                 print("Add generating report fn here")
