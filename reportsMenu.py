@@ -34,7 +34,7 @@ def showReportsOptions():
             elif reportChoice == 2:
                 print("Customers placed most orders.")
                 allCustomers = adminOperations.get_AllCustomers()
-                print(allCustomers)
+                # print(allCustomers)
                 df = pd.DataFrame(allCustomers, columns=['CustomerId', 'FirstName', 'LastName', 'Total orders'])
                 print(df)
 
