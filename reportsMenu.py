@@ -1,3 +1,6 @@
+# import pandas as pd
+import adminOperations
+
 def showReportsOptions():
     noReportExit = True
 
@@ -14,7 +17,7 @@ def showReportsOptions():
             continue
 
         if reportChoice == 4:
-            print("Exit to main admin menu")
+            print("Exit to admin menu")
             noReportExit = False
         else:
             if reportChoice == 1:
@@ -22,7 +25,7 @@ def showReportsOptions():
                 print("Add generating report fn here")
             elif reportChoice == 2:
                 print("Customers placed most orders.")
-                print("Add generating report fn here")
+                adminOperations.get_AllCustomers()
             elif reportChoice == 3:
                 print("Top 5 & Least 5 products ordered.")
                 print("Add generating report fn here")

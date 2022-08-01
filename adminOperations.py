@@ -110,5 +110,14 @@ def generate_report():
     cursor.execute("SELECT * FROM LOCATION")
     # generate a table of all locations
 
+# Function to get customers placed most orders for reports
+def get_AllCustomers():
+    cursor = connection.cursor()
+    cursor.execute("SELECT CUSTOMER.ID, CUSTOMER.FIRSTNAME AS FIRSTNAME, CUSTOMER.LASTNAME AS LASTNAME, COUNT(Orders.ID) AS NumberOfOrders "
+                   "FROM CUSTOMER LEFT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMERID "
+                   "GROUP BY CUSTOMER.FIRSTNAME, CUSTOMER.LASTNAME;")
+    allCustomers = cursor.fetchall()
+    print(allCustomers)
+
 # --------------------------------------------------------------------------------
 # connection.close()
