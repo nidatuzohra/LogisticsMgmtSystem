@@ -181,7 +181,6 @@ def adminMenu():
                     continue
                 else:
                     id = adminOperations.check_login_id(Email_Id)
-                    print(id)
                     if not Email_Id:
                         print("Email Id cannot be blank.")
                     else:
@@ -220,6 +219,8 @@ def adminMenu():
                                             adminOperations.save_customer(Email_Id, Password, Fst_Name, Lst_Name)
                                             print("Customer added successfully {0}.".format(Email_Id))
                                             error_entry7 = False
+                                            error_entry8 = False
+                                            error_entry9 = False
                                             break
 
         elif choice == 7:  # admin(7)
