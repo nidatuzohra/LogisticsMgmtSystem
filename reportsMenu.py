@@ -1,5 +1,7 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import adminOperations
 import sqlite3
-# import pandas as pd
 
 
 def showReportsOptions():
@@ -20,7 +22,7 @@ def showReportsOptions():
             continue
 
         if reportChoice == 4:
-            print("Exit to main admin menu")
+            print("Exit to admin menu")
             noReportExit = False
         else:
             if reportChoice == 1:
@@ -36,7 +38,19 @@ def showReportsOptions():
                 # print(type(destination_freq))
             elif reportChoice == 2:
                 print("Customers placed most orders.")
-                print("Add generating report fn here")
+                allCustomers = adminOperations.get_AllCustomers()
+                print(allCustomers)
+                df = pd.DataFrame(allCustomers, columns=['CustomerId', 'FirstName', 'LastName', 'Total orders'])
+                print(df)
+
+                # fig = plt.figure(figsize=(9, 5))
+                # axis = fig.add_axes([0, 0, 1, 1])
+                # name = ['Jack', 'John', 'John Shakes', 'tester']
+                # axis.bar(name, df['Total orders'], edgecolor='black')
+                # axis.set_title('Customer placed most orders', fontsize=15, pad=10)
+                # axis.set_xlabel('Customers', fontsize=15)
+                # axis.set_ylabel('Orders', fontsize=15)
+                # plt.show()
             elif reportChoice == 3:
                 print("Top 5 & Least 5 products ordered.")
                 print("Add generating report fn here")
