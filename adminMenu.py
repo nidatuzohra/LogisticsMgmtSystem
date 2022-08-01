@@ -23,7 +23,7 @@ def adminMenu():
             while error_entry:
                 try:
                     Name = input(" Enter Product Name: ")
-                    Name = Name.strip().lower()
+                    Name = Name.strip()
                     Name = str(Name)
                 except TypeError:
                     print("Provide appropriate value")
@@ -120,7 +120,7 @@ def adminMenu():
             while error_entry5:
                 try:
                     Vehicle_Type = input(" Enter Vehicle Name: ")
-                    Vehicle_Type = Vehicle_Type.strip().lower()
+                    Vehicle_Type = Vehicle_Type.strip()
                     Vehicle_Type = str(Vehicle_Type)
                 except ValueError:
                     print("Provide appropriate value")
@@ -143,7 +143,7 @@ def adminMenu():
             while error_entry6:
                 try:
                     Add_Location = input(" Enter Add Location: ")
-                    Add_Location = Add_Location.strip().lower()
+                    Add_Location = Add_Location.strip()
                     Add_Location = str(Add_Location)
                 except TypeError:
                     print("Provide appropriate value")

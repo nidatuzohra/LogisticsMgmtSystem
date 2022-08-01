@@ -26,7 +26,7 @@ def customer(email_id):
                     print("Sorry, item not available\nPlease select different product.\n")
                     continue
 
-                break_loop = utils.check_value("\nWould you like to add more?    1)YES     2)NO \nSelect: ")
+                break_loop = utils.check_value("\nWould you like to add more?\n1-YES\n2-NO \nSelect: ")
                 list_item = customerOperations.show_product()
                 if break_loop == 2 :
                     break
@@ -50,17 +50,17 @@ def customer(email_id):
                     print(county[0], "  ", county[1])
                     list_country_no.append(county[0])
                 utils.print_dash()
-                origin_country = customerOperations.fetch_value(list_vehicle_no, "Select pickup: ")
-                destination_country = customerOperations.fetch_value(list_vehicle_no, "Select destination: ")
+                origin_country = customerOperations.fetch_value(list_country_no, "Select origin: ")
+                destination_country = customerOperations.fetch_value(list_country_no, "Select destination: ")
                 if origin_country == destination_country:
-                    print("Sorry pickup and destination can't be same!")
+                    print("Sorry origin and destination can't be same!")
                 else:
                     break
 
             total = utils.print_invoice(cart)
 
             print("\nYour order is almost done \n \n---------   PAYMENT     ---------")
-            confirm = utils.check_value("Would you like to confirm the payment?\n1)YES \n2)NO\nSelect option: ",[1,2])
+            confirm = utils.check_value("Would you like to confirm the payment?\n1-YES \n2-NO\nSelect option: ",[1,2])
             if confirm == 1:
                 customerOperations.store_order_details(user_id,selected_vehicle, origin_country, destination_country, total)
                 customerOperations.store_oreder_items(user_id,cart)
