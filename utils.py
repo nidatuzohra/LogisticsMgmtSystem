@@ -1,3 +1,5 @@
+import customerOperations
+
 # Common functions will be defined here
 def check_value(statement,options=[]):
     while True:
@@ -9,6 +11,9 @@ def check_value(statement,options=[]):
                 else:
                     print("OOPS!! Please select a valid option \n ")
                     continue
+            elif value < 1:
+                print("Invalid value.")
+                continue
             else:
                 return value
         except ValueError:

@@ -6,6 +6,7 @@ def customer(email_id):
     print("Welcome to Logistic System.")
     print("\nChoose an option \n 1-Select products \n 2-Logout")
     cust_choice = int(input('Select an option: '))
+    user_id = customerOperations.get_user_id(email_id)
     custExit = True
     while custExit:
         list_item = customerOperations.show_product()
@@ -22,16 +23,16 @@ def customer(email_id):
                 value_check = customerOperations.add_to_cart(cart, product_item, quantity)
 
                 if value_check == False:
-                    print("Sorry, item not available\nPlease select different product.")
+                    print("Sorry, item not available\nPlease select different product.\n")
                     continue
 
-                break_loop = input("\nWould you like to add more? Y/N: ")
+                break_loop = utils.check_value("\nWould you like to add more?    1)YES     2)NO \nSelect: ")
                 list_item = customerOperations.show_product()
-                if(break_loop == 'n' or break_loop == 'N' or break_loop == 'No' or break_loop == 'NO'):
+                if break_loop == 2 :
                     break
 
             vehicles = customerOperations.show_vehicle()
-            print("\nAvailable transportation options\n")
+            print("\nAvailable transportation options")
             utils.print_dash()
             list_vehicle_no = []
             for vehicle in vehicles:
@@ -61,7 +62,8 @@ def customer(email_id):
             print("\nYour order is almost done \n \n---------   PAYMENT     ---------")
             confirm = utils.check_value("Would you like to confirm the payment?\n1)YES \n2)NO\nSelect option: ",[1,2])
             if confirm == 1:
-                customerOperations.store_order_details(email_id,selected_vehicle, origin_country, destination_country, total)
+                customerOperations.store_order_details(user_id,selected_vehicle, origin_country, destination_country, total)
+                customerOperations.store_oreder_items(user_id,cart)
                 print("Transaction successful!!!")
                 print("Order has been placed!!!")
                 custExit = False
