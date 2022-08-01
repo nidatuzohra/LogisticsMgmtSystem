@@ -1,7 +1,7 @@
 import customerOperations
 
 # Common functions will be defined here
-def check_value(statement,options=[]):
+def check_value(statement, options=[]):
     while True:
         try:
             value = int(input(statement))
@@ -21,11 +21,13 @@ def check_value(statement,options=[]):
             print("Please, try again \n")
             continue
 
+
 def print_dash():
     dash = '-' * 33
     print(dash)
 
-def print_menu(list_item,options,role = "C"):
+
+def print_menu(list_item, options, role="C"):
     print("NO.   ITEMS    PRICE   QUANTITY")
     print_dash()
     count = 1
@@ -36,6 +38,7 @@ def print_menu(list_item,options,role = "C"):
             count += 1
     print_dash()
     return options
+
 
 def print_invoice(cart):
     print()
@@ -49,4 +52,3 @@ def print_invoice(cart):
     print(cross)
     print("Total Amount : ", total)
     return total
-
