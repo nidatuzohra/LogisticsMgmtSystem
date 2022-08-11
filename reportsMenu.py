@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import adminOperations
-import sqlite3
 
 
 def showReportsOptions():
@@ -24,12 +23,14 @@ def showReportsOptions():
             noReportExit = False
         else:
             if reportChoice == 1:
-                print("All destinations sorted by frequencies.")
+                print("All destinations sorted by order frequency")
                 destination_list = adminOperations.get_all_destinations()
                 destination_freq = {x: destination_list.count(x) for x in destination_list}
-                destination_df = pd.DataFrame(destination_freq.items(), columns=['Destination', 'Count'])
-                print(destination_df)
-                plt.bar(destination_df['Destination'], destination_df['Count'])
+                destination_df = pd.DataFrame(destination_freq.items(), columns=['Destination', 'Count']).sort_values('Count', ascending=False)
+                plt.bar(destination_df['Destination'], destination_df['Count'], color='#855a9e')
+                plt.title("Order destinations in most ordered from to least")
+                plt.xlabel("Countries")
+                plt.ylabel("Order Frequency")
                 plt.show()
             elif reportChoice == 2:
                 print("Customers placed most orders.")
