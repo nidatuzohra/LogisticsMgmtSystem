@@ -11,7 +11,7 @@ def showReportsOptions():
         print("\nChoose an option to generate report."
               "\n 1-All destinations sorted by frequencies."
               "\n 2-Customers placed most orders."
-              "\n 3-Top 5 & Least 5 products ordered."
+              "\n 3-Top 5 products ordered."
               "\n 4-Back")
         try:
             reportChoice = int(input("Select an option: "))
@@ -39,8 +39,12 @@ def showReportsOptions():
                 plt.bar(df['FirstName'], df['Total orders'])
                 plt.show()
             elif reportChoice == 3:
-                print("Top 5 & Least 5 products ordered.")
-                print("Add generating report fn here")
+                print("Top 5 products ordered.")
+                print("All Products in Descending Order.")
+                order_list = adminOperations.get_descendingorder()
+                df = pd.DataFrame(order_list, columns=['Id', 'FirstName', 'ProductName', 'ProductID', 'Quantity'])
+                plt.bar(df['ProductName'], df['Quantity'])
+                plt.show()
             else:
                 print("Wrong selection. Try again with different option.")
                 continue

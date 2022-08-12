@@ -115,12 +115,14 @@ def generate_report():
     cursor.execute("SELECT * FROM LOCATION")
     # generate a table of all locations
 
+
 # Function to get customers placed most orders for reports
 def get_AllCustomers():
     cursor = connection.cursor()
-    cursor.execute("SELECT CUSTOMER.ID, CUSTOMER.FIRSTNAME AS FIRSTNAME, CUSTOMER.LASTNAME AS LASTNAME, COUNT(Orders.ID) AS NumberOfOrders "
-                   "FROM CUSTOMER LEFT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMERID "
-                   "GROUP BY CUSTOMER.FIRSTNAME, CUSTOMER.LASTNAME;")
+    cursor.execute(
+        "SELECT CUSTOMER.ID, CUSTOMER.FIRSTNAME AS FIRSTNAME, CUSTOMER.LASTNAME AS LASTNAME, COUNT(Orders.ID) AS NumberOfOrders "
+        "FROM CUSTOMER LEFT JOIN ORDERS ON CUSTOMER.ID = ORDERS.CUSTOMERID "
+        "GROUP BY CUSTOMER.FIRSTNAME, CUSTOMER.LASTNAME;")
     allCustomers = cursor.fetchall()
     # print(allCustomers)
     return allCustomers
@@ -134,5 +136,13 @@ def get_all_destinations():
     for x in range(len(data_list)):
         destination_list.append(data_list[x][0])
     return destination_list
+
+
+def get_descendingorder():
+    cursor = connection.cursor()
+    cursor.execute(
+        "SELECT b.user_id,a.FIRSTNAME,b.product_name,b.product_id,b.order_qty FROM CUSTOMER a JOIN  (SELECT FIRSTNAME,u.ID AS 'user_id',p.PRODUCTSNAME AS 'product_name',p.ID AS 'product_id',u.LASTNAME, u.FIRSTNAME,SUM(od.quantity) AS 'order_qty' FROM PRODUCT p LEFT JOIN ORDERITEM od ON p.ID=od.PRODUCTID LEFT JOIN ORDERS o ON od.ORDERID=o.id LEFT JOIN CUSTOMER u ON o.CUSTOMERID=u.ID WHERE product_id IS NOT NULL GROUP BY u.FIRSTNAME, p.ID ORDER BY order_qty DESC LIMIT 5) AS b ON a.ID=b.user_id;")
+    Order_list = cursor.fetchall()
+    return Order_list
 # --------------------------------------------------------------------------------
 # connection.close()
