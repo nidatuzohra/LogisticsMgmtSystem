@@ -3,7 +3,6 @@ import customerOperations
 import utils
 
 def customer(email_id):
-    print("Welcome to Logistic System.")
     print("\nChoose an option \n 1-Select products \n 2-Logout")
     cust_choice = int(input('Select an option: '))
     user_id = customerOperations.get_user_id(email_id)
