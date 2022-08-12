@@ -41,7 +41,6 @@ def showReportsOptions():
                 plt.show()
             elif reportChoice == 3:
                 print("Top 5 products ordered.")
-                print("All Products in Descending Order.")
                 order_list = adminOperations.get_descendingorder()
                 df = pd.DataFrame(order_list, columns=['Id', 'FirstName', 'ProductName', 'ProductID', 'Quantity'])
                 plt.bar(df['ProductName'], df['Quantity'])
