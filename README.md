@@ -6,6 +6,8 @@
 #### Report-Data-Structures availability (python-library based)
 #### Type Users: Admin and Customer
 
+[Youtube](https://www.youtube.com/watch?v=UMeI0LIae_8)
+
 1. The system will allow record product profile.
 2. The system will allow record vehicles profile.
 3. The system will allow record locations profile.
